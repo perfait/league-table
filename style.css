@@ -1,0 +1,29 @@
+.success{
+    background-color: lightgreen;
+    padding: 1em;
+}
+
+.error{
+    background-color: tomato;
+    padding: 1em;
+}
+
+.table-data{
+text-align: center; 
+padding-left: 20%; 
+width: 80%;
+
+}
+
+
+@media only screen and (max-width: 600px) {
+    .table-data{
+        text-align: justify;
+        float: left;
+        padding-left:0%;
+        font-size: 4.8px;
+        table-layout: fixed;
+        }
+        
+    }
+
