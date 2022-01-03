@@ -17,53 +17,41 @@
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body style="height: 100%;
+  margin: 0;">
 
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div id="logo"> 
-    <img src="assets/logo2.png" height="30" width ="120" style="margin-left: 30px;"> 
-    </div> 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div id="logo"> 
+	<img src="assets/logo2.png" height="30" width ="120" style="margin-left: 30px;"> 
+</div> 
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav" style=" width: 100%; text-align: center; margin-left: 100px; height:100%;">
-      <li class="nav-item active">
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+  <ul class="navbar-nav" style=" width: 100%; text-align: center; margin-left: 100px; height:100%;">
+      <li class="nav-item">
         <a class="nav-link" href="index.php">Standings</span></a>
       </li>
-      <li class="nav-item">
+
+      <li class="nav-item active">
         <a class="nav-link" href="top-scorers.php">Top Scorers</span></a>
       </li>
     </ul>
-    </div>
-    </nav>
-</head>
-
-
-<body>
-
-
-<h3 class="standings-header">League Standings</h3> 
-<div class="d-flex standings-div">
-        <table class="standings-table table-striped table-dark">
+  </div>
+</nav>
+ 
+        
+          <h3 class="top-scorers-header">Top Scorers</h3>
+        <div class="d-flex top-scorers-div">
+        <table class="top-scorers-table table-striped table-dark">
             <thead class="thead-dark">
                 <tr>
                     <th>Rank</th>
+                    <th>Name</th>
                     <th>Team</th>
-                    <th>MP</th>
-                    <th>W</th>
-                    <th>D</th>
-                    <th>L</th>
-                    <th>GF</th>
-                    <th>GA</th>
-                    <th>GD</th>
-                    <th>Pts</th>
-                    <th>Last Match</th>
+                    <th>Goals</th>
+                  
                 </tr>
                 </thead>
 
@@ -71,7 +59,7 @@
                                    
                 <?php
                   
-                        $result = retrieveData();
+                        $result = retrieveScorers();
 
                         if($result){
                           $rank = 1;
@@ -81,16 +69,9 @@
                                     echo "<td>" .$rank. "</td>"; 
                                     $rank++;
                                     
+                                    echo "<td>" .$row['player_name']. "</td>";
                                     echo "<td>" .$row['team_name']. "</td>";
-                                    echo "<td>" .$row['matches_played']. "</td>";
-                                    echo "<td>" .$row['won']. "</td>";
-                                    echo "<td>" .$row['drawn']. "</td>";
-                                    echo "<td>" .$row['lost']. "</td>";
-                                    echo "<td>" .$row['goals_for']. "</td>";
-                                    echo "<td>" .$row['goals_against']. "</td>";
-                                    echo "<td>" .$row['goal_difference']. "</td>";
-                                    echo "<td>" .$row['points']. "</td>";
-                                    echo "<td>" .$row['last_match']. "</td>";
+                                    echo "<td>" .$row['goals']. "</td>";
    
                                 echo "</tr>";
                                 }
@@ -99,17 +80,17 @@
                             <?php
                             
                         }
+                    
+                    
+
                 ?>
-                
             </tbody>
+            
           </table>
           </div>
-          <p style="display: block; text-align: center; font-size: 12px;"><a href="top-scorers.php">View Top Scorers</a></p>
-          <p style="display: block; text-align: center; font-size: 11px;">© 2021 Copyright: Perfait Akaka</p>
-          
-
         
-
+                <p style="display: block; text-align: center; font-size: 12px;"><a href="index.php">View Standings Table</a></p>
+                <p style="display: block; text-align: center; font-size: 11px;">© 2021 Copyright: Perfait Akaka</p>
 
 
 
@@ -122,8 +103,8 @@ integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfoo
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" 
 integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
 </script>
-
-
-
 </body>
+
+
+
 </html>

@@ -14,6 +14,14 @@ if(isset($_POST['scores'])){
     updateScores();
 }
 
+if(isset($_POST['createPlayer'])){
+    createPlayer();
+}
+
+
+if(isset($_POST['scorers'])){
+    addScorer();
+}
 
 
 //create button click
@@ -29,7 +37,7 @@ function createData(){
         $checkrows=mysqli_num_rows($check);
 
    if($checkrows>0) {
-    echo '<script>alert("Team already exists"); location = "http://localhost/league-table/add-teams.php"</script>';
+    echo '<script>alert("Team already exists"); location = "add-teams.php"</script>';
       exit;
    } else {
     $sql = "INSERT INTO teams(team_name)
@@ -51,6 +59,96 @@ function createData(){
 
 
 
+
+
+
+function addScorer(){
+    $scorerName = $_POST['scorerName'];
+    $numberOfGoals = $_POST['numberOfGoals'];
+    $newNumberOfGoals = "";
+
+    $numberOfGoalsArray=mysqli_query($GLOBALS['con'],"select goals FROM players where player_name='$scorerName'");
+    while ($row = $numberOfGoalsArray->fetch_assoc()){
+    $retrievedNumberOfGoals = $row['goals'];
+
+    $newNumberOfGoals = $retrievedNumberOfGoals + $numberOfGoals;
+
+    }
+
+
+    $sql = "UPDATE players SET goals = '$newNumberOfGoals' WHERE player_name = '$scorerName';";
+
+    if($scorerName){
+
+        $check=mysqli_query($GLOBALS['con'],"select * from players where player_name='$scorerName'");
+        $checkrows=mysqli_num_rows($check);
+
+   if($checkrows>0) {
+        $sql = "UPDATE players SET goals = '$newNumberOfGoals' WHERE player_name = '$scorerName';";
+   } else {
+    echo '<script>alert("Player does not exists"); location = "update-scores.php"</script>';
+    exit;
+   }
+
+        if(mysqli_query($GLOBALS['con'], $sql)){
+
+            TextNode("Success", "Record Successfully inserted...!");
+            
+        }else{
+            echo "Error";
+        }
+    }else {
+        TextNode("error", "Provide data in the text box");
+    }
+
+
+}
+
+
+
+
+
+
+
+
+function createPlayer(){
+    $player = $_POST['player'];
+    $playerTeam = $_POST['playerTeamSelect'];
+    $sql = "INSERT INTO players(player_name, team_name)
+    VALUES ('$player', '$playerTeam');";
+
+    if($player){
+        $check=mysqli_query($GLOBALS['con'],"select * from players where player_name='$player'");
+        $checkrows=mysqli_num_rows($check);
+
+   if($checkrows>0) {
+    echo '<script>alert("Player already exists"); location = "add-players.php"</script>';
+      exit;
+   } else {
+    $sql = "INSERT INTO players(player_name, team_name)
+    VALUES ('$player', '$playerTeam');";
+    
+   }
+
+        if(mysqli_query($GLOBALS['con'], $sql)){
+
+            TextNode("Success", "Record Successfully inserted...!");
+            
+        }else{
+            echo "Error";
+        }
+    }else {
+        TextNode("error", "Provide data in the text box");
+    }
+}
+
+
+
+
+
+
+
+
 //messages function
 function TextNode($classname, $msg){
     $element="<h6 class='$classname'>$msg</h6>";
@@ -58,10 +156,24 @@ function TextNode($classname, $msg){
 }
 
 
-//retrieve data
+//retrieve standings data
 function retrieveData(){
     $sql = "SELECT * from teams 
             ORDER BY points DESC, goal_difference DESC, team_name ASC";
+
+    $result = mysqli_query($GLOBALS['con'],$sql);
+
+    if(mysqli_num_rows($result)>0){
+        return $result;
+    }
+}
+
+
+
+//retrieve top scorer data
+function retrieveScorers(){
+    $sql = "SELECT * from players
+            ORDER BY goals DESC, player_name ASC";
 
     $result = mysqli_query($GLOBALS['con'],$sql);
 
@@ -560,7 +672,7 @@ function updateScores(){
 
                 
             }else{    
-            echo '<script>alert("You cannot select the same team twice"); location = "http://localhost/league-table/update-scores.php"</script>';
+            echo '<script>alert("You cannot select the same team twice"); location = "update-scores.php"</script>';
         }
 
 

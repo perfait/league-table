@@ -4,21 +4,14 @@
 function createdb(){
      
    
-     // on local db
-    //$servername = "localhost";
-   // $username = "root";
-    //$password = "";
-   // $dbname = "league";
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "league";
    
     
     
-    
-    
-    // on remote db
-    $servername = "remotemysql.com";
-    $username = "2Fsu3w9UT2";
-    $password = "z0b0UN3Kzn";
-    $dbname = "2Fsu3w9UT2";
     
 
     //create conection

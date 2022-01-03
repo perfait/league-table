@@ -39,10 +39,10 @@
       <li class="nav-item">
         <a class="nav-link" href="update-scores.php">Update scores</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="add-teams.php">Add Teams</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="add-players.php">Add Players</span></a>
       </li>
     </ul>
@@ -55,16 +55,32 @@
 <form action="" method="post" class="w-50">
 
 <div class="form-group">
-  <label for="team">Team:</label>
-  <input type="text" class="form-control" name="team">
+  <label for="player">Player:</label>
+  <input type="text" class="form-control" name="player">
 </div>
-<button type="submit" class="btn btn-primary" name="create">Submit</button>
+
+<div class="form-group">
+  <label for="playerTeam">Player's Team:</label>
+  <select class="browser-default custom-select" name = "playerTeamSelect">
+    <option disabled selected>-- Select home team --</option>
+    <?php
+        $records = mysqli_query($con, "SELECT team_name FROM `teams` ORDER BY team_name ASC");  // Use select query here 
+
+        while($data = mysqli_fetch_array($records))
+        {
+            echo "<option value='". $data['team_name'] ."'>" .$data['team_name'] ."</option>";  // displaying data in option menu
+        }	
+    ?>  
+  </select>
+
+</div>
+
+
+<button type="submit" class="btn btn-primary" name="createPlayer">Submit</button>
 </form>
 </div>
 
 <p style="display: block; text-align: center; font-size: 11px;">© 2021 Copyright: Perfait Akaka</p>
-
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
 integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
 </script>
@@ -75,5 +91,6 @@ integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfoo
 integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
 </script>
 </body>
+
 
 </html>
